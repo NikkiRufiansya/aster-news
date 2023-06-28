@@ -1,10 +1,8 @@
-package com.nikki.news.view
+package com.nikki.news.ui
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebViewClient
-import com.nikki.news.R
 import com.nikki.news.databinding.ActivityDetailNewsBinding
 
 

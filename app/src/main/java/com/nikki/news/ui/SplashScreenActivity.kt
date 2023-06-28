@@ -1,10 +1,11 @@
-package com.nikki.news.view
+package com.nikki.news.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.nikki.news.R
+import com.nikki.news.ui.main.MainActivity
 
 class SplashScreenActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
