@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "393021649504",
+    "project_id": "asternews-21d9e",
+    "storage_bucket": "asternews-21d9e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:393021649504:android:df379e16f7d1e048fa0905",
+        "android_client_info": {
+          "package_name": "com.nikki.news"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "393021649504-v07i8iqmhd9mp20g0gv3j03o9g8ko8mj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrFcwM_T5-ZP1RS7ho1u4KUWxclyGjeVw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "393021649504-v07i8iqmhd9mp20g0gv3j03o9g8ko8mj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

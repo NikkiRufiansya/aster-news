@@ -8,6 +8,7 @@
     <application
         android:name=".NewsApp"
         android:allowBackup="true"
+        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
@@ -16,6 +17,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AsterNews"
         tools:targetApi="31">
+        <activity
+            android:name=".ui.auth.LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.auth.SignUpActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.DetailNewsActivity"
             android:exported="false" />
@@ -30,7 +37,7 @@
         </activity>
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>

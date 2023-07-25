@@ -1,22 +1,21 @@
 package com.nikki.news.ui.main
 
 
+
+
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
-
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
-import androidx.core.widget.addTextChangedListener
-import androidx.lifecycle.ViewModelProvider
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.google.android.material.tabs.TabLayout
-
+import com.google.firebase.auth.FirebaseAuth
+import com.nikki.news.R
 import com.nikki.news.databinding.ActivityMainBinding
 import com.nikki.news.state.NetworkState
 import com.nikki.news.ui.DetailNewsActivity
@@ -25,7 +24,9 @@ import com.nikki.news.utils.Constants
 import com.nikki.news.utils.Constants.Companion.QUERY_PER_PAGE
 import com.nikki.news.utils.EndlessRecyclerOnScrollListener
 import com.nikki.news.utils.EspressoIdlingResource
+import com.nikki.news.utils.SessionManager
 import dagger.hilt.android.AndroidEntryPoint
+import java.util.Locale
 
 
 @AndroidEntryPoint
@@ -36,15 +37,26 @@ class MainActivity : AppCompatActivity() {
     private val mainViewModel: MainViewModel by viewModels()
     private lateinit var newsAdapter: NewsAdapters
     private val countryCode = Constants.CountryCode
+    private lateinit var auth: FirebaseAuth
+    private lateinit var sessionManager: SessionManager
 
-
+    lateinit var toolbar: Toolbar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        toolbar = binding.tvToolbar  // Use the existing toolbar from the layout
+
+        setSupportActionBar(toolbar) // Set the toolbar as the support action bar
+
+        if (supportActionBar != null) {
+            supportActionBar?.title = "News"
+        }
+        toolbar.inflateMenu(R.menu.main_menu)
 
         newsAdapter = NewsAdapters()
-
+        auth = FirebaseAuth.getInstance()
+        sessionManager = SessionManager(this)
         tabView()
         getNewsByCategory("general")
         search()
@@ -53,7 +65,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun search(){
         binding.btnFilter.setOnClickListener {
-            val query = binding.etFilter.text.toString().trim().replace("\\s+".toRegex(), "-").toLowerCase()
+            val query = binding.etFilter.text.toString().trim().replace("\\s+".toRegex(), "-")
+                .lowercase(Locale.getDefault())
             mainViewModel.searchNews(query)
             collectSearchResponse()
             binding.rvNews.apply {
@@ -231,6 +244,30 @@ class MainActivity : AppCompatActivity() {
 
             }
         })
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+        return true
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.logout -> {
+                auth.signOut()
+                sessionManager.logoutUser()
+                Toast.makeText(this,"tes", Toast.LENGTH_SHORT).show()
+                finish()
+                true
+            }
+
+
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
 
